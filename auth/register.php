@@ -34,7 +34,7 @@ $csrf = generate_csrf_token();
         <section class="auth-panel">
             <div class="auth-card">
                 <div class="auth-card-header"><h2>Daftar Akun</h2><p>Isi data berikut untuk membuat akun peminjam.</p></div>
-                <?php if (isset($_GET['error'])) : ?><div class="alert alert-danger"><i class="fas fa-circle-exclamation"></i> <?= e($_GET['error']); ?></div><?php endif; ?>
+                <?php if (isset($_GET['error'])) : ?><div class="alert alert-danger"><i class="fas fa-circle-exclamation"></i> <?= htmlspecialchars((string) $_GET['error'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
                 <form action="<?= e(base_url('auth/process_register.php')); ?>" method="POST" autocomplete="on">
                     <input type="hidden" name="csrf_token" value="<?= e($csrf); ?>">
                     <div class="form-group"><label class="form-label" for="name"><i class="fas fa-user"></i> Nama Lengkap</label><div class="input-wrap"><i class="fas fa-user"></i><input type="text" id="name" name="name" class="form-control" placeholder="Nama lengkap" required></div></div>

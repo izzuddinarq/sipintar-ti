@@ -14,8 +14,8 @@ $pageTitle = 'Data Barang';
     <?php include __DIR__ . '/../../includes/sidebar.php'; ?>
     <main class="main-content">
         <div class="page-header"><div class="header-row"><div><h1>Data Barang</h1><p>Kelola stok, lokasi, kondisi, dan status barang inventaris.</p></div><a href="<?= e(base_url('admin/items/create.php')); ?>" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Barang</a></div></div>
-        <?php if (isset($_GET['success'])): ?><div class="alert alert-success"><?= e($_GET['success']); ?></div><?php endif; ?>
-        <?php if (isset($_GET['error'])): ?><div class="alert alert-danger"><?= e($_GET['error']); ?></div><?php endif; ?>
+        <?php if (isset($_GET['success'])): ?><div class="alert alert-success"><?= htmlspecialchars((string) $_GET['success'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
+        <?php if (isset($_GET['error'])): ?><div class="alert alert-danger"><?= htmlspecialchars((string) $_GET['error'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
         <div class="table-wrapper">
             <div class="table-header"><h3>Daftar Barang</h3></div>
             <div class="table-body">

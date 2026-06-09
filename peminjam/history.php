@@ -48,11 +48,11 @@ $statusBadge = ['pending'=>'badge-warning','approved'=>'badge-success','returned
     <?php include __DIR__ . '/../includes/sidebar.php'; ?>
     <main class="main-content">
         <div class="page-header"><div class="header-row"><div><h1>Riwayat Peminjaman</h1><p>Lihat status dan detail seluruh pengajuan peminjaman Anda.</p></div><a href="<?= e(base_url('peminjam/borrow.php')); ?>" class="btn btn-primary"><i class="fas fa-plus"></i> Ajukan Baru</a></div></div>
-        <?php if (isset($_GET['success'])): ?><div class="alert alert-success"><?= e($_GET['success']); ?></div><?php endif; ?>
-        <?php if (isset($_GET['error'])): ?><div class="alert alert-danger"><?= e($_GET['error']); ?></div><?php endif; ?>
+        <?php if (isset($_GET['success'])): ?><div class="alert alert-success"><?= htmlspecialchars((string) $_GET['success'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
+        <?php if (isset($_GET['error'])): ?><div class="alert alert-danger"><?= htmlspecialchars((string) $_GET['error'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
         <div class="filter-card panel-card">
             <form method="GET" class="action-row">
-                <input type="text" name="search" value="<?= e($search); ?>" class="form-control max-w-320" placeholder="Cari kode, barang, atau keperluan">
+                <input type="text" name="search" value="<?= htmlspecialchars((string) $search, ENT_QUOTES, 'UTF-8'); ?>" class="form-control max-w-320" placeholder="Cari kode, barang, atau keperluan">
                 <select name="status" class="form-select max-w-240">
                     <option value="">Semua Status</option>
                     <?php foreach ($statusLabel as $key => $label): ?>

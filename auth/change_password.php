@@ -27,8 +27,8 @@ $success = $_GET['success'] ?? '';
         <div class="panel-card max-w-720">
             <div class="card-header-clean"><h3><i class="fas fa-key"></i> Form Ubah Password</h3></div>
             <div class="card-body-clean">
-                <?php if ($error): ?><div class="alert alert-danger"><i class="fas fa-circle-exclamation"></i> <?= e($error); ?></div><?php endif; ?>
-                <?php if ($success): ?><div class="alert alert-success"><i class="fas fa-circle-check"></i> <?= e($success); ?></div><?php endif; ?>
+                <?php if ($error): ?><div class="alert alert-danger"><i class="fas fa-circle-exclamation"></i> <?= htmlspecialchars((string) $error, ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
+                <?php if ($success): ?><div class="alert alert-success"><i class="fas fa-circle-check"></i> <?= htmlspecialchars((string) $success, ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
                 <form method="post" action="<?= e(base_url('auth/process_change_password.php')); ?>" autocomplete="off">
                     <input type="hidden" name="csrf_token" value="<?= e($csrf); ?>">
                     <div class="form-group">

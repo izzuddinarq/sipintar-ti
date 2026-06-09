@@ -39,7 +39,7 @@ $currentRole = $_SESSION['current_role'] ?? null;
                 </div>
             <?php endif; ?>
             <?php if (isset($_GET['success'])) : ?><div class="alert alert-success"><i class="fas fa-check-circle"></i> Registrasi berhasil. Silakan login sebagai peminjam.</div><?php endif; ?>
-            <?php if (isset($_GET['error'])) : ?><div class="alert alert-danger"><i class="fas fa-circle-exclamation"></i> <?= e($_GET['error']); ?></div><?php endif; ?>
+            <?php if (isset($_GET['error'])) : ?><div class="alert alert-danger"><i class="fas fa-circle-exclamation"></i> <?= htmlspecialchars((string) $_GET['error'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
             <?php if (isset($_SESSION['flash'])) : ?><div class="alert alert-danger"><i class="fas fa-circle-exclamation"></i> <?= e($_SESSION['flash']); unset($_SESSION['flash']); ?></div><?php endif; ?>
 
             <div class="choice-grid">

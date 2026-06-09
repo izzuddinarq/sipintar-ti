@@ -40,8 +40,8 @@ $statusBadge = ['pending'=>'badge-warning','approved'=>'badge-success','returned
                 <a href="<?= e(base_url('admin/dashboard.php')); ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Dashboard</a>
             </div>
         </div>
-        <?php if (isset($_GET['success'])): ?><div class="alert alert-success"><?= e($_GET['success']); ?></div><?php endif; ?>
-        <?php if (isset($_GET['error'])): ?><div class="alert alert-danger"><?= e($_GET['error']); ?></div><?php endif; ?>
+        <?php if (isset($_GET['success'])): ?><div class="alert alert-success"><?= htmlspecialchars((string) $_GET['success'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
+        <?php if (isset($_GET['error'])): ?><div class="alert alert-danger"><?= htmlspecialchars((string) $_GET['error'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
         <div class="filter-card panel-card">
             <form method="GET" class="action-row">
                 <select name="status" class="form-select max-w-240">

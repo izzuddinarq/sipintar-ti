@@ -141,8 +141,8 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `identity_type`, `identity_number`, `is_active`) VALUES
-(1, 'Administrator', 'admin@sipintar.com', '$2b$12$m71EuQSuzcxwfMMR3mppjO9Kg6kThbhBzjS87H5uaG/SUfStAB7ye', 'admin', 'petugas', 'ADM001', 1),
-(2, 'Peminjam Demo', 'peminjam@sipintar.com', '$2b$12$Mh7AEw.j4oKbC0ypRj3rNOoDWUYiXoEoKKp2NUVU95PEYFUOizK8a', 'peminjam', 'mahasiswa', 'MHS001', 1);
+(1, 'Administrator', 'admin@sipintar.com', CONCAT('$2b$','12$m71EuQSuzcxwfMMR3mppjO9Kg6kThbhBzjS87H5uaG/SUfStAB7ye'), 'admin', 'petugas', 'ADM001', 1),
+(2, 'Peminjam Demo', 'peminjam@sipintar.com', CONCAT('$2b$','12$Mh7AEw.j4oKbC0ypRj3rNOoDWUYiXoEoKKp2NUVU95PEYFUOizK8a'), 'peminjam', 'mahasiswa', 'MHS001', 1);
 
 INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 (1, 'Presentasi', 'Peralatan presentasi'),

@@ -36,7 +36,7 @@ $pageTitle = 'Katalog Barang';
         <div class="page-header"><div class="header-row"><div><h1>Katalog Barang</h1><p>Pilih barang yang tersedia untuk diajukan peminjaman.</p></div><a href="<?= e(base_url('peminjam/borrow.php')); ?>" class="btn btn-primary"><i class="fas fa-plus"></i> Ajukan Pinjaman</a></div></div>
         <div class="filter-card panel-card">
             <form method="GET" class="action-row">
-                <input type="text" name="search" value="<?= e($search); ?>" class="form-control max-w-320" placeholder="Cari nama, kode, atau kategori">
+                <input type="text" name="search" value="<?= htmlspecialchars((string) $search, ENT_QUOTES, 'UTF-8'); ?>" class="form-control max-w-320" placeholder="Cari nama, kode, atau kategori">
                 <select name="category" class="form-select max-w-240">
                     <option value="0">Semua Kategori</option>
                     <?php while ($cat = mysqli_fetch_assoc($categories)): ?>

@@ -36,7 +36,7 @@ $peminjamLoggedIn = isset($logins['peminjam']);
                     <p>Gunakan akun peminjam yang sudah terdaftar.</p>
                 </div>
                 <?php if (isset($_GET['success'])) : ?><div class="alert alert-success" role="status" aria-live="polite" id="form-success"><i class="fas fa-check-circle"></i> Registrasi berhasil. Silakan login.</div><?php endif; ?>
-                <?php if (isset($_GET['error'])) : ?><div class="alert alert-danger" role="alert" aria-live="assertive" id="form-error"><i class="fas fa-circle-exclamation"></i> <?= e($_GET['error']); ?></div><?php endif; ?>
+                <?php if (isset($_GET['error'])) : ?><div class="alert alert-danger" role="alert" aria-live="assertive" id="form-error"><i class="fas fa-circle-exclamation"></i> <?= htmlspecialchars((string) $_GET['error'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
                 <?php if (isset($_SESSION['flash'])) : ?><div class="alert alert-danger" role="alert" aria-live="assertive" id="form-error"><i class="fas fa-circle-exclamation"></i> <?= e($_SESSION['flash']); unset($_SESSION['flash']); ?></div><?php endif; ?>
                 <form action="<?= e(base_url('auth/process_login.php')); ?>" method="POST" autocomplete="on" novalidate aria-describedby="form-error form-success">
                     <input type="hidden" name="csrf_token" value="<?= e($csrf); ?>">

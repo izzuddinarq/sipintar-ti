@@ -13,13 +13,97 @@ if ($basePath !== '') {
     }
 }
 
-$targetPath = public_path_for_alias($routePath);
-if ($targetPath !== null) {
-    $targetFile = __DIR__ . '/' . $targetPath;
-    if (is_file($targetFile)) {
-        include $targetFile;
+// Dispatch hanya untuk alias publik yang sudah di-whitelist.
+// Setiap include memakai path literal, bukan nama file dari input user.
+// Ini menghilangkan risiko path traversal / tainted filename pada front controller.
+switch ($routePath) {
+    case 'masuk':
+        require __DIR__ . '/auth/login.php';
         exit;
-    }
+    case 'masuk-admin':
+        require __DIR__ . '/auth/admin_login.php';
+        exit;
+    case 'masuk-peminjam':
+        require __DIR__ . '/auth/user_login.php';
+        exit;
+    case 'daftar':
+        require __DIR__ . '/auth/register.php';
+        exit;
+    case 'proses-masuk':
+        require __DIR__ . '/auth/process_login.php';
+        exit;
+    case 'proses-daftar':
+        require __DIR__ . '/auth/process_register.php';
+        exit;
+    case 'ubah-password':
+        require __DIR__ . '/auth/change_password.php';
+        exit;
+    case 'proses-ubah-password':
+        require __DIR__ . '/auth/process_change_password.php';
+        exit;
+    case 'keluar':
+        require __DIR__ . '/auth/logout.php';
+        exit;
+    case 'panel':
+        require __DIR__ . '/admin/dashboard.php';
+        exit;
+    case 'permintaan':
+        require __DIR__ . '/admin/borrow/index.php';
+        exit;
+    case 'permintaan/setujui':
+        require __DIR__ . '/admin/borrow/approve.php';
+        exit;
+    case 'permintaan/tolak':
+        require __DIR__ . '/admin/borrow/reject.php';
+        exit;
+    case 'permintaan/kembali':
+        require __DIR__ . '/admin/borrow/return.php';
+        exit;
+    case 'inventaris':
+        require __DIR__ . '/admin/items/index.php';
+        exit;
+    case 'inventaris/tambah':
+        require __DIR__ . '/admin/items/create.php';
+        exit;
+    case 'inventaris/edit':
+        require __DIR__ . '/admin/items/edit.php';
+        exit;
+    case 'inventaris/hapus':
+        require __DIR__ . '/admin/items/delete.php';
+        exit;
+    case 'kategori':
+        require __DIR__ . '/admin/categories/index.php';
+        exit;
+    case 'kategori/tambah':
+        require __DIR__ . '/admin/categories/create.php';
+        exit;
+    case 'kategori/edit':
+        require __DIR__ . '/admin/categories/edit.php';
+        exit;
+    case 'kategori/hapus':
+        require __DIR__ . '/admin/categories/delete.php';
+        exit;
+    case 'aktivitas':
+        require __DIR__ . '/admin/logs/index.php';
+        exit;
+    case 'notifikasi-sistem':
+        require __DIR__ . '/admin/security-events/index.php';
+        exit;
+    case 'beranda':
+        require __DIR__ . '/peminjam/dashboard.php';
+        exit;
+    case 'katalog':
+        require __DIR__ . '/peminjam/items.php';
+        exit;
+    case 'ajukan':
+        require __DIR__ . '/peminjam/borrow.php';
+        exit;
+    case 'riwayat':
+        require __DIR__ . '/peminjam/history.php';
+        exit;
+    case 'batalkan':
+        require __DIR__ . '/peminjam/cancel.php';
+        exit;
 }
 
 include_once __DIR__ . '/config/security.php';

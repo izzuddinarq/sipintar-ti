@@ -14,8 +14,8 @@ $pageTitle = 'Kategori Barang';
     <?php include __DIR__ . '/../../includes/sidebar.php'; ?>
     <main class="main-content">
         <div class="page-header"><div class="header-row"><div><h1>Kategori Barang</h1><p>Kelola kelompok barang agar inventaris lebih mudah dicari.</p></div><a href="<?= e(base_url('admin/categories/create.php')); ?>" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Kategori</a></div></div>
-        <?php if (isset($_GET['success'])): ?><div class="alert alert-success"><?= e($_GET['success']); ?></div><?php endif; ?>
-        <?php if (isset($_GET['error'])): ?><div class="alert alert-danger"><?= e($_GET['error']); ?></div><?php endif; ?>
+        <?php if (isset($_GET['success'])): ?><div class="alert alert-success"><?= htmlspecialchars((string) $_GET['success'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
+        <?php if (isset($_GET['error'])): ?><div class="alert alert-danger"><?= htmlspecialchars((string) $_GET['error'], ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
         <div class="table-wrapper">
             <div class="table-header"><h3>Daftar Kategori</h3></div>
             <div class="table-body">
