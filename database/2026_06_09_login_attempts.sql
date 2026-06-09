@@ -1,5 +1,6 @@
--- Migration tambahan untuk database yang sudah berjalan.
--- Jalankan file ini sekali melalui phpMyAdmin jika tabel login_attempts belum otomatis dibuat.
+-- Migration tambahan untuk database SIPINTAR-TI yang sudah berjalan.
+-- Jalankan file ini sekali melalui phpMyAdmin jika tabel login_attempts belum tersedia.
+-- File ini tidak berisi data user, password hash, atau credential produksi.
 
 CREATE TABLE IF NOT EXISTS `login_attempts` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,

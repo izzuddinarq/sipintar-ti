@@ -1,11 +1,12 @@
--- SIPINTAR-TI clean database import for Hostinger/phpMyAdmin
--- Pilih database Hostinger terlebih dahulu, lalu import file ini.
--- Tidak menggunakan CREATE DATABASE agar tidak memicu error #1044.
+-- SIPINTAR-TI database schema, sanitized for public repository
+-- File ini hanya berisi struktur tabel. Tidak ada data user, password hash, atau credential produksi.
+-- Cara pakai: pilih database di phpMyAdmin, lalu import file ini.
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = '+00:00';
 SET FOREIGN_KEY_CHECKS = 0;
 
+DROP TABLE IF EXISTS `login_attempts`;
 DROP TABLE IF EXISTS `sessions`;
 DROP TABLE IF EXISTS `security_events`;
 DROP TABLE IF EXISTS `audit_logs`;
@@ -140,23 +141,19 @@ CREATE TABLE `sessions` (
   CONSTRAINT `fk_session_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `identity_type`, `identity_number`, `is_active`) VALUES
-(1, 'Administrator', 'admin@sipintar.com', CONCAT('$2b$','12$m71EuQSuzcxwfMMR3mppjO9Kg6kThbhBzjS87H5uaG/SUfStAB7ye'), 'admin', 'petugas', 'ADM001', 1),
-(2, 'Peminjam Demo', 'peminjam@sipintar.com', CONCAT('$2b$','12$Mh7AEw.j4oKbC0ypRj3rNOoDWUYiXoEoKKp2NUVU95PEYFUOizK8a'), 'peminjam', 'mahasiswa', 'MHS001', 1);
-
-INSERT INTO `categories` (`id`, `name`, `description`) VALUES
-(1, 'Presentasi', 'Peralatan presentasi'),
-(2, 'Praktikum Jaringan', 'Peralatan jaringan komputer'),
-(3, 'Praktikum IoT', 'Peralatan IoT dan embedded'),
-(4, 'Dokumentasi', 'Peralatan dokumentasi'),
-(5, 'Umum', 'Peralatan umum');
-
-INSERT INTO `items` (`id`, `category_id`, `item_code`, `name`, `description`, `stock`, `item_condition`, `location`, `status`) VALUES
-(1, 1, 'PRJ-001', 'Proyektor Epson', 'Proyektor ruang seminar', 5, 'baik', 'Lab Multimedia', 'available'),
-(2, 1, 'HDMI-001', 'Kabel HDMI', 'Kabel HDMI 5 meter', 10, 'baik', 'Gudang Inventaris', 'available'),
-(3, 2, 'RTR-001', 'Router Mikrotik', 'Router praktikum jaringan', 7, 'baik', 'Lab Jaringan', 'available'),
-(4, 3, 'ARD-001', 'Arduino Uno', 'Board Arduino Uno R3', 15, 'baik', 'Lab IoT', 'available'),
-(5, 4, 'CAM-001', 'Kamera Canon', 'Kamera dokumentasi kegiatan', 2, 'baik', 'Ruang Multimedia', 'available');
-
-INSERT INTO `audit_logs` (`user_id`, `action`, `entity`, `entity_id`, `ip_address`, `user_agent`, `description`) VALUES
-(1, 'INIT_DB', 'system', NULL, '127.0.0.1', 'database-import', 'Database bersih berhasil diinisialisasi');
+CREATE TABLE `login_attempts` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `identifier_hash` char(64) NOT NULL,
+  `email` varchar(191) NOT NULL,
+  `role` enum('admin','peminjam') NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `failed_count` tinyint unsigned NOT NULL DEFAULT 0,
+  `locked_until` int unsigned DEFAULT NULL,
+  `last_failed_at` int unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_login_attempt_identifier` (`identifier_hash`),
+  KEY `idx_login_attempt_email_role` (`email`, `role`),
+  KEY `idx_login_attempt_locked_until` (`locked_until`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
